@@ -1,25 +1,85 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import FormInput from './components/formInput/FormInput';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = ()=>{
+    const [value, Setvalue] = useState({
+        username: '',
+        email: '',
+        fullname: '',
+        password: '',
+        confirmpassword: ''
 
-export default App;
+    });
+    const inputs = [
+        {
+            id: 1,
+            name: 'username',
+            errorMessage: '',
+            label: 'Username',
+            type: 'text',
+            placeholder: 'User Name'
+
+        },
+        {
+            id: 2,
+            name: 'email',
+            errorMessage: '',
+            label: 'Email',
+            type: 'email',
+            placeholder: 'Email'
+
+        },
+        {
+            id: 3,
+            name: 'fullname',
+            errorMessage: '',
+            label: 'Full Name',
+            type: 'text',
+            placeholder: 'Full Name'
+
+        },
+        {
+            id: 4,
+            name: 'password',
+            errorMessage: '',
+            label: 'Password',
+            type: 'password',
+            placeholder: 'Password'
+
+        },
+        {
+            id: 5,
+            name: 'confirmpassword',
+            errorMessage: '',
+            label: 'Confirm Password',
+            type: 'password',
+            placeholder: 'Confirm Password'
+
+        }
+    ];
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+
+    }
+
+    const onChange =(e) =>{
+        Setvalue({...value,[e.target.name]: e.target.value});
+    }
+    console.log(value)
+    return (
+        <div className='app'>
+            
+            <form onSubmit={handleSubmit}>
+                <h1>Registation</h1>
+                {inputs.map((input) => (
+                    <FormInput key={input.id} {...input} value={value.name} onChange={onChange}/>
+                ))}
+                
+                <button>Submit</button>
+            </form>
+        </div>
+    )
+}
+export default App; 
